@@ -8,22 +8,15 @@ class RunningSum {
      * 
      * 
      * @param nums int array
-     * @return int
+     * @return int array
      */
-    public int runningSum(int[] nums) {
-        int prefixSum = nums[0], leftSum = 0;
+    public int[] runningSum(int[] nums) {
+        int ps = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            prefixSum += nums[i];
+            ps += nums[i];
+            nums[i] = ps;
         }
-        int rightSum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            leftSum = i == 0 ? 0 : leftSum + nums[i - 1];
-            rightSum = prefixSum - leftSum - nums[i];
-            System.out.println("i = " + i + ", leftSum = " + leftSum + ", rightSum = " + rightSum);
-            if (leftSum == rightSum)
-                return i;
-        }
-        return -1;
+        return nums;
     }
 
     /**
@@ -33,11 +26,11 @@ class RunningSum {
      * @param args
      */
     public static void main(String[] args) {
-        int[] nums = new int[] { 2, 1, -1 };
+        int[] nums = new int[] { 1, 2, 3, 4 };
         Print(nums);
         RunningSum rs = new RunningSum();
-        int ans = rs.runningSum(nums);
-        System.out.println("ans = " + ans);
+        nums = rs.runningSum(nums);
+        Print(nums);
     }
 
     public static void Print(int[] nums) {

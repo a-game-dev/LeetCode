@@ -16,14 +16,17 @@ class FindPivotIndex {
      * @return
      */
     public int pivotIndex(int[] nums) {
-        int leftSum = 0, rightSum = 0, len = nums.length;
-        for (int i = 0; i < len; i++) {
-            leftSum += nums[i];
-            rightSum += nums[len - 1 - i];
-            System.out.println("index: " + i + " left sum: " + leftSum + ", rightSum: " + rightSum);
-            // if (leftSum == rightSum) {
-            // return i;
-            // }
+        int prefixSum = nums[0], leftSum = 0;
+        for (int i = 1; i < nums.length; i++) {
+            prefixSum += nums[i];
+        }
+        int rightSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            leftSum = i == 0 ? 0 : leftSum + nums[i - 1];
+            rightSum = prefixSum - leftSum - nums[i];
+            System.out.println("i = " + i + ", leftSum = " + leftSum + ", rightSum = " + rightSum);
+            if (leftSum == rightSum)
+                return i;
         }
         return -1;
     }
